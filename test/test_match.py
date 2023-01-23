@@ -17,29 +17,29 @@ class TestMatch(unittest.TestCase):
         self.match.add_ball(self.team1[0], "1")
 
         actual = self.match.team2_bat_inns
-        expected = [{self.team1[0]: ["1"]}]
+        expected = {1: {self.team1[0]: ["1"]}}
         self.assertEqual(actual, expected)
 
     def test_add_ball_new_over(self):
 
-        self.match.team2_bat_inns = [{self.team1[0]: ["0", "0", "0", "0", "0", "0"]}]
+        self.match.team2_bat_inns = {1: {self.team1[0]: ["0", "0", "0", "0", "0", "0"]}}
         self.match.add_ball(self.team1[1], "4")
         actual = self.match.team2_bat_inns
-        expected = [
-            {self.team1[0]: ["0", "0", "0", "0", "0", "0"]},
-            {self.team1[1]: ["4"]},
-        ]
+        expected = {
+            1: {self.team1[0]: ["0", "0", "0", "0", "0", "0"]},
+            2: {self.team1[1]: ["4"]},
+        }
         self.assertEqual(actual, expected)
 
     def test_add_ball_current_over(self):
-        self.match.team2_bat_inns = [{self.team1[0]: ["0", "0", "0"]}]
+        self.match.team2_bat_inns = {1: {self.team1[0]: ["0", "0", "0"]}}
         self.match.add_ball(self.team1[0], "4")
         actual = self.match.team2_bat_inns
-        expected = [{self.team1[0]: ["0", "0", "0", "4"]}]
+        expected = {1: {self.team1[0]: ["0", "0", "0", "4"]}}
         self.assertEqual(actual, expected)
 
     def test_add_ball_new_bowler_unfinished_over(self):
-        self.match.team2_bat_inns = [{self.team1[0]: ["0", "0", "0"]}]
+        self.match.team2_bat_inns = {1: {self.team1[0]: ["0", "0", "0"]}}
         with self.assertRaises(Exception) as context:
             self.match.add_ball(self.team1[1], "4")
         self.assertEqual(
@@ -48,7 +48,7 @@ class TestMatch(unittest.TestCase):
         )
 
     def test_add_ball_same_bowler_new_over(self):
-        self.match.team2_bat_inns = [{self.team1[0]: ["0", "0", "0", "0", "0", "0"]}]
+        self.match.team2_bat_inns = {1: {self.team1[0]: ["0", "0", "0", "0", "0", "0"]}}
         with self.assertRaises(Exception) as context:
             self.match.add_ball(self.team1[0], "4")
         self.assertEqual(
