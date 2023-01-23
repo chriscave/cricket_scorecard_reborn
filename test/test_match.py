@@ -38,4 +38,20 @@ class TestMatch(unittest.TestCase):
         expected = [{self.team1[0]: ["0", "0", "0", "4"]}]
         self.assertEqual(actual, expected)
 
-    # def test_add_ball_new_bowler_unfinished_over(self):
+    def test_add_ball_new_bowler_unfinished_over(self):
+        self.match.team2_bat_inns = [{self.team1[0]: ["0", "0", "0"]}]
+        with self.assertRaises(Exception) as context:
+            self.match.add_ball(self.team1[1], "4")
+        self.assertEqual(
+            f"{self.team1[0].name} is the current bowler but {self.team1[1].name} was passed",
+            str(context.exception),
+        )
+
+    def test_add_ball_same_bowler_new_over(self):
+        self.match.team2_bat_inns = [{self.team1[0]: ["0", "0", "0", "0", "0", "0"]}]
+        with self.assertRaises(Exception) as context:
+            self.match.add_ball(self.team1[0], "4")
+        self.assertEqual(
+            f"{self.team1[0].name} bowled the last over so can not bowl a new over",
+            str(context.exception),
+        )

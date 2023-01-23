@@ -31,12 +31,22 @@ class Match:
             inns = self.team1_bat_inns
 
         if inns:
+            last_over = inns[-1]
+            last_bowler = list(last_over.keys())[0]
 
-            over = list(inns[-1].values())[0]
+            over = list(last_over.values())[0]
             if len(over) == 6:
+                if last_bowler == bowler:
+                    raise Exception(
+                        f"{bowler.name} bowled the last over so can not bowl a new over",
+                    )
                 inns.append({bowler: [outcome]})
             else:
-                inns[-1][bowler].append(outcome)
+                if not last_bowler == bowler:
+                    raise Exception(
+                        f"{last_bowler.name} is the current bowler but {bowler.name} was passed",
+                    )
+                last_over[bowler].append(outcome)
 
         else:
             inns.append({bowler: [outcome]})
