@@ -7,56 +7,47 @@ class Player:
         self.bat_inns = dict()
         self.bowl_inns = dict()
 
-    def bowler_add_ball(self, outcome: str, over_no: int):
-        current_over = self.bowl_inns.get(over_no)
-        if current_over:
-            current_over.append(outcome)
+    def bowler_add_ball(self, outcome: str, over_no: int, ball_no: int):
+        over_in_progress = self.bowl_inns.get(over_no)
+        if over_in_progress:
+            over_in_progress[ball_no] = outcome
         else:
-            self.bowl_inns[over_no] = [outcome]
+            new_over = ["DNB" for _ in range(6)]
+            self.bowl_inns[over_no] = new_over
+            self.bowl_inns[over_no][ball_no] = outcome
+
+    def batter_add_ball(self, outcome, over_no: int, ball_no: int):
+        over_in_progress = self.bat_inns.get(over_no)
+        if over_in_progress:
+            over_in_progress[ball_no] = outcome
+        else:
+            new_over = ["DNB" for _ in range(6)]
+            self.bat_inns[over_no] = new_over
+            self.bat_inns[over_no][ball_no] = outcome
 
 
-class Match:
-    def __init__(
-        self, team1: List[Player], team1_name: str, team2: List[Player], team2_name: str
-    ):
-        if not (len(team1) == 11 and len(team2) == 11):
+class Innings:
+    def __init__(self, batting_team: List[Player], bowling_team: List[Player]):
+        if not (len(batting_team) == 11 and len(bowling_team) == 11):
             raise Exception(
-                f"Teams must have 11 players but {team1_name} has {len(team1)} and {team2_name} has length {len(team2)}"
+                f"Teams must have 11 players but batting_team has {len(batting_team)} and bowling_team has length {len(bowling_team)}"
             )
 
-        self.team1 = team1
-        self.team1_name = team1_name
-        self.team2 = team2
-        self.team2_name = team2_name
-        self.team1_bat_inns = dict()
-        self.team2_bat_inns = dict()
+        self.batting_team = batting_team
+        self.bowling_team = bowling_team
 
-    def add_ball(self, bowler: Player, outcome):
-        if bowler in self.team1:
-            inns = self.team2_bat_inns
-        else:
-            inns = self.team1_bat_inns
+    def get_innings_scorecard(self):
+        scorecard = {}
+        for player in self.bowling_team:
+            for over_no in player.bowl_inns:
+                scorecard[over_no] = player[over_no]
+        return scorecard
 
-        if inns:
-            last_over_no = max(list(inns.keys()))
-            last_over = inns[last_over_no]
-            last_bowler = list(last_over.keys())[0]
+    @staticmethod
+    def check_over_ended(over):
+        return len(over) == 6
 
-            over = list(last_over.values())[0]
-            if len(over) == 6:
-                if last_bowler == bowler:
-                    raise Exception(
-                        f"{bowler.name} bowled the last over so can not bowl a new over",
-                    )
-                inns[last_over_no + 1] = {bowler: [outcome]}
-                bowler.bowler_add_ball(outcome, last_over_no + 1)
-            else:
-                if not last_bowler == bowler:
-                    raise Exception(
-                        f"{last_bowler.name} is the current bowler but {bowler.name} was passed",
-                    )
-                last_over[bowler].append(outcome)
-                bowler.bowler_add_ball(outcome, last_over_no)
+    def add_ball(self, bowler: Player, batter: Player, outcome, over_no, ball_no):
 
-        else:
-            inns[1] = {bowler: [outcome]}
+        bowler.bowler_add_ball(outcome, over_no, ball_no)
+        batter.batter_add_ball(outcome, over_no, ball_no)
