@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 function Ball(props) {
-  return <div>{props.value}</div>;
+  return <div> {props.value}</div>;
 }
 
 class Over extends React.Component {
@@ -36,7 +36,7 @@ class Over extends React.Component {
         {this.renderRow(0)}
         {this.renderRow(1)}
         {this.renderRow(2)}
-        {}
+        <div className="over-score">score</div>
       </div>
     );
   }
@@ -45,7 +45,14 @@ class Over extends React.Component {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Over value={[3, ".", 2, 3, ".", 5]} />
+    <div className="wrapper">
+      <div className="first">
+        <Over value={[3, ".", 2, 3, ".", 5]} />
+      </div>
+      <div className="second">
+        <Over value={[3, ".", 2, 3, ".", 5]} />
+      </div>
+    </div>
   </React.StrictMode>
 );
 

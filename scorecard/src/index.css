@@ -1,5 +1,30 @@
 .over{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* grid-template-columns: 1fr; */
+  /* grid-template-rows: 1fr 1fr 1fr 1fr; */
   width: 50px;
+  border: solid;
+  border-width: thin;
+  /* padding-left: 0.5%; */
+  /* padding-right: 0.5%; */
   }
+.over-score{
+  grid-column: 1/3;
+  border: solid;
+  border-width: thin;
+}
+
+.wrapper{
+  width: 500px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+.first{
+  width: 300px;
+    float:left; /* add this */
+    border: 1px solid red;
+}
+.second{
+  border: 1px solid green;
+  float: left; /* add this */
+}
