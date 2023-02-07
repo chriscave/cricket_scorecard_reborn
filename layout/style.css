@@ -1,0 +1,66 @@
+.bowler-name {
+  height: 60px;
+  width: 150px;
+  font-size: medium;
+  border-right: 1px solid black;
+  float: left;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.bowler-summary {
+  height: 60px;
+  width: 1000px;
+  border: 1px solid black;
+  float: left;
+}
+
+.over {
+  border-right: 1px solid black;
+  float: left;
+  width: 30px;
+  height: 60px;
+  font-size: small;
+}
+
+.over-summary {
+  float: left;
+  width: 30px;
+  height: 45px;
+}
+
+.over-score {
+  width: 30px;
+  height: 15px;
+  border-top: 1px solid black;
+  text-align: center;
+  float: left;
+}
+
+.ball-row {
+  width: 30px;
+  height: 15px;
+}
+
+.ball {
+  width: 10px;
+  height: 15px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.wrapper {
+  width: 1000px;
+  height: 500px;
+  border: 0.5px solid black;
+}

@@ -1,12 +1,12 @@
-.over{
+/* .{
   display: grid;
-  /* grid-template-columns: 1fr; */
-  /* grid-template-rows: 1fr 1fr 1fr 1fr; */
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   width: 50px;
   border: solid;
   border-width: thin;
-  /* padding-left: 0.5%; */
-  /* padding-right: 0.5%; */
+  padding-left: 0.5%;
+  padding-right: 0.5%;
   }
 .over-score{
   grid-column: 1/3;
@@ -21,10 +21,19 @@
 }
 .first{
   width: 300px;
-    float:left; /* add this */
+    float:left;
     border: 1px solid red;
 }
 .second{
   border: 1px solid green;
-  float: left; /* add this */
+  float: left;
+} */
+.ball{
+  padding:1px;
+}
+
+.over {
+  border: 1px solid black;
+  width: 50px;
+  height: 55px;
 }
