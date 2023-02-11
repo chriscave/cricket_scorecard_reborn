@@ -2,65 +2,107 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-function Ball(props) {
-  return <span className="ball"> {props.value}</span>;
+function BallDetail(props) {
+  const className = props.side + " ball";
+  return <div className={className}> {props.value}</div>;
 }
 
-class Over extends React.Component {
-  // renderRow(i) {
-  //   let ball_numbers;
-  //   if (i === 0) {
-  //     ball_numbers = [0, 3];
-  //   } else if (i === 1) {
-  //     ball_numbers = [1, 4];
-  //   } else {
-  //     ball_numbers = [2, 5];
-  //   }
+function BallRowDetail(props) {
+  const leftball = props.value[0];
+  const rightball = props.value[1];
+  return (
+    <div className="ball-row">
+      {" "}
+      <BallDetail side="left" value={leftball} />
+      <BallDetail side="right" value={rightball} />
+    </div>
+  );
+}
 
-  //   return (
-  //     <>
-  //       <div>
-  //         {" "}
-  //         <Ball value={this.props.value[ball_numbers[0]]} />
-  //       </div>
-  //       <div>
-  //         <Ball value={this.props.value[ball_numbers[1]]} />
-  //       </div>
-  //     </>
-  //   );
-  // }
+function OverDetail(props) {
+  const firstrow = props.value ? [props.value[0], props.value[3]] : "";
+  const secondrow = props.value ? [props.value[1], props.value[4]] : "";
+  const thirdrow = props.value ? [props.value[2], props.value[5]] : "";
 
-  render() {
-    return (
-      <div className="over">
-        {" "}
-        <div>
-          <Ball value={1} />
-          <Ball value={2} />
-        </div>
-        <div>
-          <Ball value={1} />
-          <Ball value={2} />
-        </div>
-        <div>
-          <Ball value={1} />
-          <Ball value={2} />
-        </div>
-      </div>
-      // <div className="over">
-      //   {this.renderRow(0)}
-      //   {this.renderRow(1)}
-      //   {this.renderRow(2)}
-      //   <div className="over-score">score</div>
-      // </div>
-    );
-  }
+  return (
+    <div className="over-detail">
+      {" "}
+      <BallRowDetail value={firstrow} /> <BallRowDetail value={secondrow} />{" "}
+      <BallRowDetail value={thirdrow} />
+    </div>
+  );
+}
+
+function OverScore(props) {
+  return <div className="over-score">{props.value}</div>;
+}
+
+function Over(props) {
+  return (
+    <div className="over">
+      <OverDetail value={props.value} />
+      <OverScore value={props.score} />
+    </div>
+  );
+}
+
+function BowlerName(props) {
+  return <div className="bowler-name">{props.value}</div>;
+}
+
+function BowlerDetails(props) {
+  return (
+    <div className="bowler-details">
+      {" "}
+      <BowlerName value={props.name} />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+      <Over />
+    </div>
+  );
+}
+
+function BowlingScorecard(props) {
+  return (
+    <div className="bowling-scorecard">
+      <BowlerDetails />
+      <BowlerDetails />
+      <BowlerDetails />
+      <BowlerDetails />
+      <BowlerDetails />
+      <BowlerDetails />
+    </div>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Over value={[3, ".", 2, 3, ".", 5]} />
+    <BowlingScorecard />
   </React.StrictMode>
 );
 
