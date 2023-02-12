@@ -99,10 +99,44 @@ function BowlingScorecard(props) {
   );
 }
 
+function BallDetailInput(props) {
+  return (
+    <div>
+      <div>
+        <button>0</button>
+        <button>1</button>
+        <button>2</button>
+      </div>
+      <div>
+        <button>3</button>
+        <button>4</button>
+        <button>6</button>
+      </div>
+      <div>
+        <button>Wkt</button>
+        {/* <button>NB</button> */}
+        {/* <button>Bye</button> */}
+        {/* <button>Wide</button> */}
+        {/* <button>LB</button> */}
+      </div>
+    </div>
+  );
+}
+class Scorecard extends React.Component {
+  render() {
+    return (
+      <div>
+        <BowlingScorecard />
+        <BallDetailInput />
+      </div>
+    );
+  }
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BowlingScorecard />
+    <Scorecard />
   </React.StrictMode>
 );
 
