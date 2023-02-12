@@ -99,35 +99,64 @@ function BowlingScorecard(props) {
   );
 }
 
-function BallDetailInput(props) {
-  return (
-    <div>
+class BallDetailInput extends React.Component {
+  renderButton(i) {
+    return <button onClick={() => this.props.onClick(i)}>{i}</button>;
+  }
+  render() {
+    return (
       <div>
-        <button>0</button>
-        <button>1</button>
-        <button>2</button>
+        <div>
+          {this.renderButton(0)}
+          {this.renderButton(1)}
+          {this.renderButton(2)}
+        </div>
+        <div>
+          {this.renderButton(3)}
+          {this.renderButton(4)}
+          {this.renderButton(6)}
+        </div>
+        <div>
+          {this.renderButton("Wkt")}
+          {/* <button>NB</button> */}
+          {/* <button>Bye</button> */}
+          {/* <button>Wide</button> */}
+          {/* <button>LB</button> */}
+        </div>
       </div>
-      <div>
-        <button>3</button>
-        <button>4</button>
-        <button>6</button>
-      </div>
-      <div>
-        <button>Wkt</button>
-        {/* <button>NB</button> */}
-        {/* <button>Bye</button> */}
-        {/* <button>Wide</button> */}
-        {/* <button>LB</button> */}
-      </div>
-    </div>
-  );
+    );
+  }
 }
 class Scorecard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scorecard: [],
+      bowlerNames: [],
+    };
+  }
+  handleClick(i) {
+    let currentOver;
+    const updatedScorecard = this.state.scorecard.slice();
+    const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
+    if (updatedScorecard.length === 0 || lastOver.length === 6) {
+      currentOver = [i];
+      updatedScorecard.push(currentOver);
+    } else {
+      currentOver = lastOver.slice();
+      currentOver.push(i);
+      updatedScorecard[updatedScorecard.length - 1] = currentOver;
+    }
+    console.log(updatedScorecard);
+
+    this.setState({ scorecard: updatedScorecard });
+  }
+
   render() {
     return (
       <div>
         <BowlingScorecard />
-        <BallDetailInput />
+        <BallDetailInput onClick={(i) => this.handleClick(i)} />
       </div>
     );
   }
