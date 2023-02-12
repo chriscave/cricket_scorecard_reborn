@@ -53,14 +53,17 @@ function BowlerName(props) {
 function BowlerDetails(props) {
   const noOvers = 27;
   let overNumbers = [];
-  for (let i = 1; i <= noOvers; i++) {
+  for (let i = 0; i < noOvers; i++) {
     overNumbers.push(i);
   }
   return (
     <div className="bowler-details">
       <BowlerName value={props.name} />
       {overNumbers.map((overNumber) => (
-        <Over key={overNumber} />
+        <Over
+          key={overNumber}
+          value={props.value ? props.value[overNumber] : null}
+        />
       ))}
     </div>
   );
@@ -69,7 +72,7 @@ function BowlerDetails(props) {
 function BowlingScorecard(props) {
   return (
     <div className="bowling-scorecard">
-      <BowlerDetails value={props.scorecard} />
+      <BowlerDetails value={props.value} />
       {/* <BowlerDetails />
       <BowlerDetails />
       <BowlerDetails />
