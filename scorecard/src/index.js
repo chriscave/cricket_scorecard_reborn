@@ -51,6 +51,17 @@ function BowlerName(props) {
 }
 
 function BowlerDetails(props) {
+  const bowlerOverDetails = props.value;
+  const overRuns = bowlerOverDetails.map((over) =>
+    over.reduce((a, b) => a + b)
+  );
+  // console.log(bowlerScores);
+  const bowlerRuns = overRuns.map(
+    (
+      (sum) => (value) =>
+        (sum += value)
+    )(0)
+  );
   const noOvers = 27;
   let overNumbers = [];
   for (let i = 0; i < noOvers; i++) {
@@ -62,7 +73,8 @@ function BowlerDetails(props) {
       {overNumbers.map((overNumber) => (
         <Over
           key={overNumber}
-          value={props.value ? props.value[overNumber] : null}
+          value={bowlerOverDetails ? bowlerOverDetails[overNumber] : null}
+          score={bowlerRuns ? bowlerRuns[overNumber] : null}
         />
       ))}
     </div>
