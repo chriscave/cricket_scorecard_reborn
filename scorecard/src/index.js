@@ -4,7 +4,12 @@ import "./index.css";
 
 function BallDetail(props) {
   const className = props.side + " ball";
-  return <div className={className}> {props.value}</div>;
+  return (
+    <div className={className}>
+      {" "}
+      {props.value === "Wkt" ? "W" : props.value}
+    </div>
+  );
 }
 
 function BallRowDetail(props) {
@@ -34,14 +39,22 @@ function OverDetail(props) {
 }
 
 function OverScore(props) {
-  return <div className="over-score">{props.value}</div>;
+  let score;
+  if (props) {
+    score = props.value;
+  }
+  if (props.wickets) {
+    score += " - " + props.wickets;
+  }
+
+  return <div className="over-score">{score}</div>;
 }
 
 function Over(props) {
   return (
     <div className="over">
       <OverDetail value={props.value} />
-      <OverScore value={props.score} />
+      <OverScore value={props.score} wickets={props.wickets} />
     </div>
   );
 }
@@ -51,11 +64,25 @@ function BowlerName(props) {
 }
 
 function BowlerDetails(props) {
+  let overWickets = props.value.map((over) =>
+    over.map((ball) => ball === "Wkt")
+  );
+  overWickets = overWickets.map((over) => over.reduce((a, b) => a + b));
+  const bowlerWickets = overWickets.map(
+    (
+      (sum) => (value) =>
+        (sum += value)
+    )(0)
+  );
+
   const bowlerOverDetails = props.value;
-  const overRuns = bowlerOverDetails.map((over) =>
+  const bowlerOverDetailsOnlyRuns = bowlerOverDetails.map((over) =>
+    over.map((ball) => (ball === "Wkt" ? 0 : ball))
+  );
+
+  const overRuns = bowlerOverDetailsOnlyRuns.map((over) =>
     over.reduce((a, b) => a + b)
   );
-  // console.log(bowlerScores);
   const bowlerRuns = overRuns.map(
     (
       (sum) => (value) =>
@@ -75,6 +102,7 @@ function BowlerDetails(props) {
           key={overNumber}
           value={bowlerOverDetails ? bowlerOverDetails[overNumber] : null}
           score={bowlerRuns ? bowlerRuns[overNumber] : null}
+          wickets={bowlerWickets ? bowlerWickets[overNumber] : null}
         />
       ))}
     </div>
