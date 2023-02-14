@@ -68,12 +68,7 @@ function BowlerDetails(props) {
     over.map((ball) => ball === "Wkt")
   );
   overWickets = overWickets.map((over) => over.reduce((a, b) => a + b));
-  const bowlerWickets = overWickets.map(
-    (
-      (sum) => (value) =>
-        (sum += value)
-    )(0)
-  );
+  const cumSumWickets = cumulativeSum(overWickets);
 
   const bowlerOverDetails = props.value;
   const bowlerOverDetailsOnlyRuns = bowlerOverDetails.map((over) =>
@@ -83,12 +78,7 @@ function BowlerDetails(props) {
   const overRuns = bowlerOverDetailsOnlyRuns.map((over) =>
     over.reduce((a, b) => a + b)
   );
-  const bowlerRuns = overRuns.map(
-    (
-      (sum) => (value) =>
-        (sum += value)
-    )(0)
-  );
+  const cumSumRuns = cumulativeSum(overRuns);
   const noOvers = 27;
   let overNumbers = [];
   for (let i = 0; i < noOvers; i++) {
@@ -101,8 +91,8 @@ function BowlerDetails(props) {
         <Over
           key={overNumber}
           value={bowlerOverDetails ? bowlerOverDetails[overNumber] : null}
-          score={bowlerRuns ? bowlerRuns[overNumber] : null}
-          wickets={bowlerWickets ? bowlerWickets[overNumber] : null}
+          score={cumSumRuns ? cumSumRuns[overNumber] : null}
+          wickets={cumSumWickets ? cumSumWickets[overNumber] : null}
         />
       ))}
     </div>
@@ -190,6 +180,17 @@ root.render(
     <Scorecard />
   </React.StrictMode>
 );
+
+function cumulativeSum(array) {
+  const sum = array.reduce(function (r, a) {
+    if (r.length > 0) {
+      a += r[r.length - 1];
+    }
+    r.push(a);
+    return r;
+  }, []);
+  return sum;
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
