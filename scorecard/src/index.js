@@ -64,13 +64,13 @@ function BowlerName(props) {
 }
 
 function BowlerDetails(props) {
-  let overWickets = props.value.map((over) =>
-    over.map((ball) => ball === "Wkt")
-  );
+  let overWickets = props.value
+    ? props.value.map((over) => over.map((ball) => ball === "Wkt"))
+    : [];
   overWickets = overWickets.map((over) => over.reduce((a, b) => a + b));
   const cumSumWickets = cumulativeSum(overWickets);
 
-  const bowlerOverDetails = props.value;
+  const bowlerOverDetails = props.value ? props.value : [];
   const bowlerOverDetailsOnlyRuns = bowlerOverDetails.map((over) =>
     over.map((ball) => (ball === "Wkt" ? 0 : ball))
   );
@@ -103,11 +103,11 @@ function BowlingScorecard(props) {
   return (
     <div className="bowling-scorecard">
       <BowlerDetails value={props.value} />
-      {/* <BowlerDetails />
       <BowlerDetails />
       <BowlerDetails />
       <BowlerDetails />
-      <BowlerDetails /> */}
+      <BowlerDetails />
+      <BowlerDetails />
     </div>
   );
 }
