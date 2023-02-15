@@ -102,12 +102,12 @@ function BowlerDetails(props) {
 function BowlingScorecard(props) {
   return (
     <div className="bowling-scorecard">
-      <BowlerDetails value={props.value} />
-      <BowlerDetails />
-      <BowlerDetails />
-      <BowlerDetails />
-      <BowlerDetails />
-      <BowlerDetails />
+      <BowlerDetails value={props.value} name={props.names[0]} />
+      <BowlerDetails name={props.names[1]} />
+      <BowlerDetails name={props.names[2]} />
+      <BowlerDetails name={props.names[3]} />
+      <BowlerDetails name={props.names[4]} />
+      <BowlerDetails name={props.names[5]} />
     </div>
   );
 }
@@ -140,12 +140,36 @@ class BallDetailInput extends React.Component {
     );
   }
 }
+
+function BowlerNameDropdown(props) {
+  return (
+    <div className="left">
+      <label htmlFor="pet-select">Choose a Bowler:</label>
+
+      <select name="bowlers" id="bowler-select">
+        {props.names.map((name) => (
+          <option key={name} value={name}>
+            {name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
 class Scorecard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       scorecard: [],
-      bowlerNames: [],
+      bowlerNames: [
+        "Bowler 1",
+        "Bowler 2",
+        "Bowler 3",
+        "Bowler 4",
+        "Bowler 5",
+        "Bowler 6",
+      ],
+      bowlerOrder: [],
     };
   }
   handleClick(i) {
@@ -167,8 +191,12 @@ class Scorecard extends React.Component {
   render() {
     return (
       <div>
-        <BowlingScorecard value={this.state.scorecard} />
+        <BowlingScorecard
+          value={this.state.scorecard}
+          names={this.state.bowlerNames}
+        />
         <BallDetailInput onClick={(i) => this.handleClick(i)} />
+        <BowlerNameDropdown names={this.state.bowlerNames} />
       </div>
     );
   }
