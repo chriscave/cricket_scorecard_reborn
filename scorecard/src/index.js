@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function BallDetail(props) {
   const className = props.side + " ball";
@@ -159,19 +163,29 @@ class BallDetailInput extends React.Component {
 
 function BowlerNameDropdown(props) {
   return (
-    <div className="left">
-      <label htmlFor="pet-select">Choose a Bowler:</label>
-
-      <select name="bowlers" id="bowler-select">
-        {props.names.map((name) => (
-          <option key={name} value={name}>
-            {name}
-          </option>
-        ))}
-      </select>
-    </div>
+    <DropdownButton id="bowlerNameDropdown" title="Choose a Bowler">
+      {props.names.map((name) => (
+        <Dropdown.Item key={name}>{name}</Dropdown.Item>
+      ))}
+    </DropdownButton>
   );
 }
+
+// function BowlerNameDropdown(props) {
+//   return (
+//     <div className="left">
+//       <label htmlFor="pet-select">Choose a Bowler:</label>
+
+//       <select name="bowlers" id="bowler-select">
+//         {props.names.map((name) => (
+//           <option key={name} value={name}>
+//             {name}
+//           </option>
+//         ))}
+//       </select>
+//     </div>
+//   );
+// }
 class Scorecard extends React.Component {
   constructor(props) {
     super(props);
