@@ -99,17 +99,45 @@ function BowlerDetails(props) {
   );
 }
 
-function BowlingScorecard(props) {
-  return (
-    <div className="bowling-scorecard">
-      <BowlerDetails value={props.value} name={props.names[0]} />
-      <BowlerDetails name={props.names[1]} />
-      <BowlerDetails name={props.names[2]} />
-      <BowlerDetails name={props.names[3]} />
-      <BowlerDetails name={props.names[4]} />
-      <BowlerDetails name={props.names[5]} />
-    </div>
-  );
+// function BowlingScorecard(props) {
+//   return (
+//     <div className="bowling-scorecard">
+//       <BowlerDetails value={props.value} name={props.names[0]} />
+//       <BowlerDetails name={props.names[1]} />
+//       <BowlerDetails name={props.names[2]} />
+//       <BowlerDetails name={props.names[3]} />
+//       <BowlerDetails name={props.names[4]} />
+//       <BowlerDetails name={props.names[5]} />
+//     </div>
+//   );
+// }
+
+class BowlingScorecard extends React.Component {
+  getBowlerDetail(name, bowlerNameArray, scorecard) {
+    let bowlerDetail = [];
+    for (let i = 0; i < scorecard.length; i++) {
+      if (bowlerNameArray[i] === name) {
+        bowlerDetail.push(scorecard[i]);
+      }
+    }
+    return bowlerDetail;
+  }
+  render() {
+    return (
+      <div className="bowling-scorecard">
+        {this.props.names.map((name) => (
+          <BowlerDetails
+            value={this.getBowlerDetail(
+              name,
+              this.props.order,
+              this.props.value
+            )}
+            name={name}
+          />
+        ))}
+      </div>
+    );
+  }
 }
 
 class BallDetailInput extends React.Component {
@@ -175,17 +203,23 @@ class Scorecard extends React.Component {
   handleClick(i) {
     let currentOver;
     const updatedScorecard = this.state.scorecard.slice();
+    const bowlerOrder = this.state.bowlerOrder.slice();
     const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
     if (updatedScorecard.length === 0 || lastOver.length === 6) {
       currentOver = [i];
       updatedScorecard.push(currentOver);
+      if (updatedScorecard.length % 2 == 1) {
+        bowlerOrder.push("Bowler 1");
+      } else {
+        bowlerOrder.push("Bowler 2");
+      }
     } else {
       currentOver = lastOver.slice();
       currentOver.push(i);
       updatedScorecard[updatedScorecard.length - 1] = currentOver;
     }
 
-    this.setState({ scorecard: updatedScorecard });
+    this.setState({ scorecard: updatedScorecard, bowlerOrder: bowlerOrder });
   }
 
   render() {
@@ -194,6 +228,7 @@ class Scorecard extends React.Component {
         <BowlingScorecard
           value={this.state.scorecard}
           names={this.state.bowlerNames}
+          order={this.state.bowlerOrder}
         />
         <BallDetailInput onClick={(i) => this.handleClick(i)} />
         <BowlerNameDropdown names={this.state.bowlerNames} />
