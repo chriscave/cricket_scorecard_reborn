@@ -165,7 +165,9 @@ function BowlerNameDropdown(props) {
   return (
     <DropdownButton id="bowlerNameDropdown" title="Choose a Bowler">
       {props.names.map((name) => (
-        <Dropdown.Item key={name}>{name}</Dropdown.Item>
+        <Dropdown.Item key={name} onClick={() => console.log("Hi Lea!")}>
+          {name}
+        </Dropdown.Item>
       ))}
     </DropdownButton>
   );
