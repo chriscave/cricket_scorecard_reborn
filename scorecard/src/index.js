@@ -99,19 +99,6 @@ function BowlerDetails(props) {
   );
 }
 
-// function BowlingScorecard(props) {
-//   return (
-//     <div className="bowling-scorecard">
-//       <BowlerDetails value={props.value} name={props.names[0]} />
-//       <BowlerDetails name={props.names[1]} />
-//       <BowlerDetails name={props.names[2]} />
-//       <BowlerDetails name={props.names[3]} />
-//       <BowlerDetails name={props.names[4]} />
-//       <BowlerDetails name={props.names[5]} />
-//     </div>
-//   );
-// }
-
 class BowlingScorecard extends React.Component {
   getBowlerDetail(name, bowlerNameArray, scorecard) {
     let bowlerDetail = [];
@@ -127,6 +114,7 @@ class BowlingScorecard extends React.Component {
       <div className="bowling-scorecard">
         {this.props.names.map((name) => (
           <BowlerDetails
+            key={name}
             value={this.getBowlerDetail(
               name,
               this.props.order,
