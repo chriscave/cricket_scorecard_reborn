@@ -166,7 +166,7 @@ function BowlerNameDropdown(props) {
     return (
       <DropdownButton id="bowlerNameDropdown" title="Choose a Bowler">
         {props.names.map((name) => (
-          <Dropdown.Item key={name} onClick={() => console.log("Hi Lea!")}>
+          <Dropdown.Item key={name} onClick={() => props.onClick(name)}>
             {name}
           </Dropdown.Item>
         ))}
@@ -177,21 +177,6 @@ function BowlerNameDropdown(props) {
   }
 }
 
-// function BowlerNameDropdown(props) {
-//   return (
-//     <div className="left">
-//       <label htmlFor="pet-select">Choose a Bowler:</label>
-
-//       <select name="bowlers" id="bowler-select">
-//         {props.names.map((name) => (
-//           <option key={name} value={name}>
-//             {name}
-//           </option>
-//         ))}
-//       </select>
-//     </div>
-//   );
-// }
 class Scorecard extends React.Component {
   constructor(props) {
     super(props);
@@ -217,23 +202,23 @@ class Scorecard extends React.Component {
   handleClick(i) {
     let currentOver;
     const updatedScorecard = this.state.scorecard.slice();
-    const bowlerOrder = this.state.bowlerOrder.slice();
     const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
     if (this.newOver()) {
       currentOver = [i];
       updatedScorecard.push(currentOver);
-      if (updatedScorecard.length % 2 == 1) {
-        bowlerOrder.push("Bowler 1");
-      } else {
-        bowlerOrder.push("Bowler 2");
-      }
     } else {
       currentOver = lastOver.slice();
       currentOver.push(i);
       updatedScorecard[updatedScorecard.length - 1] = currentOver;
     }
 
-    this.setState({ scorecard: updatedScorecard, bowlerOrder: bowlerOrder });
+    this.setState({ scorecard: updatedScorecard });
+  }
+
+  handleBowlerChange(name) {
+    const updatebowlerOrder = this.state.bowlerOrder.slice();
+    updatebowlerOrder.push(name);
+    this.setState({ bowlerOrder: updatebowlerOrder });
   }
 
   render() {
@@ -248,6 +233,7 @@ class Scorecard extends React.Component {
         <BowlerNameDropdown
           names={this.state.bowlerNames}
           newOver={this.newOver()}
+          onClick={(name) => this.handleBowlerChange(name)}
         />
       </div>
     );
