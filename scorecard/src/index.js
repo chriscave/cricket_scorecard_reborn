@@ -162,15 +162,19 @@ class BallDetailInput extends React.Component {
 }
 
 function BowlerNameDropdown(props) {
-  return (
-    <DropdownButton id="bowlerNameDropdown" title="Choose a Bowler">
-      {props.names.map((name) => (
-        <Dropdown.Item key={name} onClick={() => console.log("Hi Lea!")}>
-          {name}
-        </Dropdown.Item>
-      ))}
-    </DropdownButton>
-  );
+  if (props.newOver) {
+    return (
+      <DropdownButton id="bowlerNameDropdown" title="Choose a Bowler">
+        {props.names.map((name) => (
+          <Dropdown.Item key={name} onClick={() => console.log("Hi Lea!")}>
+            {name}
+          </Dropdown.Item>
+        ))}
+      </DropdownButton>
+    );
+  } else {
+    return <div></div>;
+  }
 }
 
 // function BowlerNameDropdown(props) {
@@ -204,12 +208,18 @@ class Scorecard extends React.Component {
       bowlerOrder: [],
     };
   }
+
+  newOver() {
+    const updatedScorecard = this.state.scorecard.slice();
+    const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
+    return updatedScorecard.length === 0 || lastOver.length === 6;
+  }
   handleClick(i) {
     let currentOver;
     const updatedScorecard = this.state.scorecard.slice();
     const bowlerOrder = this.state.bowlerOrder.slice();
     const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
-    if (updatedScorecard.length === 0 || lastOver.length === 6) {
+    if (this.newOver()) {
       currentOver = [i];
       updatedScorecard.push(currentOver);
       if (updatedScorecard.length % 2 == 1) {
@@ -235,7 +245,10 @@ class Scorecard extends React.Component {
           order={this.state.bowlerOrder}
         />
         <BallDetailInput onClick={(i) => this.handleClick(i)} />
-        <BowlerNameDropdown names={this.state.bowlerNames} />
+        <BowlerNameDropdown
+          names={this.state.bowlerNames}
+          newOver={this.newOver()}
+        />
       </div>
     );
   }
