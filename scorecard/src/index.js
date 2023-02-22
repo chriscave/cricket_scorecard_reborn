@@ -137,27 +137,31 @@ class BallDetailInput extends React.Component {
     return <button onClick={() => this.props.onClick(i)}>{i}</button>;
   }
   render() {
-    return (
-      <div>
+    if (this.props.bowlerChosen) {
+      return (
         <div>
-          {this.renderButton(0)}
-          {this.renderButton(1)}
-          {this.renderButton(2)}
+          <div>
+            {this.renderButton(0)}
+            {this.renderButton(1)}
+            {this.renderButton(2)}
+          </div>
+          <div>
+            {this.renderButton(3)}
+            {this.renderButton(4)}
+            {this.renderButton(6)}
+          </div>
+          <div>
+            {this.renderButton("Wkt")}
+            {/* <button>NB</button> */}
+            {/* <button>Bye</button> */}
+            {/* <button>Wide</button> */}
+            {/* <button>LB</button> */}
+          </div>
         </div>
-        <div>
-          {this.renderButton(3)}
-          {this.renderButton(4)}
-          {this.renderButton(6)}
-        </div>
-        <div>
-          {this.renderButton("Wkt")}
-          {/* <button>NB</button> */}
-          {/* <button>Bye</button> */}
-          {/* <button>Wide</button> */}
-          {/* <button>LB</button> */}
-        </div>
-      </div>
-    );
+      );
+    } else {
+      return <div></div>;
+    }
   }
 }
 
@@ -191,6 +195,7 @@ class Scorecard extends React.Component {
         "Bowler 6",
       ],
       bowlerOrder: [],
+      newBowlerChosen: false,
     };
   }
 
@@ -203,22 +208,29 @@ class Scorecard extends React.Component {
     let currentOver;
     const updatedScorecard = this.state.scorecard.slice();
     const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
+    let newBowlerChosen = this.state.newBowlerChosen.valueOf();
     if (this.newOver()) {
       currentOver = [i];
       updatedScorecard.push(currentOver);
     } else {
       currentOver = lastOver.slice();
       currentOver.push(i);
+      if (currentOver.length == 6) {
+        newBowlerChosen = false;
+      }
       updatedScorecard[updatedScorecard.length - 1] = currentOver;
     }
 
-    this.setState({ scorecard: updatedScorecard });
+    this.setState({
+      scorecard: updatedScorecard,
+      newBowlerChosen: newBowlerChosen,
+    });
   }
 
   handleBowlerChange(name) {
     const updatebowlerOrder = this.state.bowlerOrder.slice();
     updatebowlerOrder.push(name);
-    this.setState({ bowlerOrder: updatebowlerOrder });
+    this.setState({ bowlerOrder: updatebowlerOrder, newBowlerChosen: true });
   }
 
   render() {
@@ -229,7 +241,10 @@ class Scorecard extends React.Component {
           names={this.state.bowlerNames}
           order={this.state.bowlerOrder}
         />
-        <BallDetailInput onClick={(i) => this.handleClick(i)} />
+        <BallDetailInput
+          onClick={(i) => this.handleClick(i)}
+          bowlerChosen={this.state.newBowlerChosen}
+        />
         <BowlerNameDropdown
           names={this.state.bowlerNames}
           newOver={this.newOver()}
