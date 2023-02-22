@@ -69,7 +69,7 @@ function BowlerName(props) {
 
 function BowlerDetails(props) {
   let overWickets = props.value
-    ? props.value.map((over) => over.map((ball) => ball === "Wkt"))
+    ? props.value.map((over) => over.map((ball) => (ball === "Wkt" ? 1 : 0)))
     : [];
   overWickets = overWickets.map((over) => over.reduce((a, b) => a + b));
   const cumSumWickets = cumulativeSum(overWickets);
