@@ -199,17 +199,12 @@ class Scorecard extends React.Component {
     };
   }
 
-  newOver() {
-    const updatedScorecard = this.state.scorecard.slice();
-    const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
-    return updatedScorecard.length === 0 || lastOver.length === 6;
-  }
   handleClick(i) {
     let currentOver;
     const updatedScorecard = this.state.scorecard.slice();
     const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
     let newBowlerChosen = this.state.newBowlerChosen.valueOf();
-    if (this.newOver()) {
+    if (updatedScorecard.length === 0 || lastOver.length === 6) {
       currentOver = [i];
       updatedScorecard.push(currentOver);
     } else {
@@ -247,8 +242,7 @@ class Scorecard extends React.Component {
         />
         <BowlerNameDropdown
           names={this.state.bowlerNames.filter(
-            (name) =>
-              name !== this.state.bowlerOrder[this.state.bowlerOrder.length - 1]
+            (name) => name !== this.state.bowlerOrder.at(-1)
           )}
           bowlerChosen={this.state.newBowlerChosen}
           onClick={(name) => this.handleBowlerChange(name)}
