@@ -246,7 +246,10 @@ class Scorecard extends React.Component {
           bowlerChosen={this.state.newBowlerChosen}
         />
         <BowlerNameDropdown
-          names={this.state.bowlerNames}
+          names={this.state.bowlerNames.filter(
+            (name) =>
+              name !== this.state.bowlerOrder[this.state.bowlerOrder.length - 1]
+          )}
           bowlerChosen={this.state.newBowlerChosen}
           onClick={(name) => this.handleBowlerChange(name)}
         />
