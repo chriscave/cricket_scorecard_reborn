@@ -166,7 +166,9 @@ class BallDetailInput extends React.Component {
 }
 
 function BowlerNameDropdown(props) {
-  if (props.newOver) {
+  if (props.bowlerChosen) {
+    return <div></div>;
+  } else {
     return (
       <DropdownButton id="bowlerNameDropdown" title="Choose a Bowler">
         {props.names.map((name) => (
@@ -176,8 +178,6 @@ function BowlerNameDropdown(props) {
         ))}
       </DropdownButton>
     );
-  } else {
-    return <div></div>;
   }
 }
 
@@ -247,7 +247,7 @@ class Scorecard extends React.Component {
         />
         <BowlerNameDropdown
           names={this.state.bowlerNames}
-          newOver={this.newOver()}
+          bowlerChosen={this.state.newBowlerChosen}
           onClick={(name) => this.handleBowlerChange(name)}
         />
       </div>
