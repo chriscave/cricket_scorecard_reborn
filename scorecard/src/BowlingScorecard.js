@@ -1,0 +1,82 @@
+import React from "react";
+import Over from "./Over";
+
+function BowlerName(props) {
+  return <div className="bowler-name">{props.value}</div>;
+}
+
+function BowlerDetails(props) {
+  let overWickets = props.value
+    ? props.value.map((over) => over.map((ball) => (ball === "Wkt" ? 1 : 0)))
+    : [];
+  overWickets = overWickets.map((over) => over.reduce((a, b) => a + b));
+  const cumSumWickets = cumulativeSum(overWickets);
+
+  const bowlerOverDetails = props.value ? props.value : [];
+  const bowlerOverDetailsOnlyRuns = bowlerOverDetails.map((over) =>
+    over.map((ball) => (ball === "Wkt" ? 0 : ball))
+  );
+
+  const overRuns = bowlerOverDetailsOnlyRuns.map((over) =>
+    over.reduce((a, b) => a + b)
+  );
+  const cumSumRuns = cumulativeSum(overRuns);
+  const noOvers = 27;
+  let overNumbers = [];
+  for (let i = 0; i < noOvers; i++) {
+    overNumbers.push(i);
+  }
+  return (
+    <div className="bowler-details">
+      <BowlerName value={props.name} />
+      {overNumbers.map((overNumber) => (
+        <Over
+          key={overNumber}
+          value={bowlerOverDetails ? bowlerOverDetails[overNumber] : null}
+          score={cumSumRuns ? cumSumRuns[overNumber] : null}
+          wickets={cumSumWickets ? cumSumWickets[overNumber] : null}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default class BowlingScorecard extends React.Component {
+  getBowlerDetail(name, bowlerNameArray, scorecard) {
+    let bowlerDetail = [];
+    for (let i = 0; i < scorecard.length; i++) {
+      if (bowlerNameArray[i] === name) {
+        bowlerDetail.push(scorecard[i]);
+      }
+    }
+    return bowlerDetail;
+  }
+  render() {
+    return (
+      <div className="bowling-scorecard">
+        {this.props.names.map((name) => (
+          <BowlerDetails
+            key={name}
+            value={this.getBowlerDetail(
+              name,
+              this.props.order,
+              this.props.value
+            )}
+            name={name}
+          />
+        ))}
+      </div>
+    );
+  }
+}
+
+function cumulativeSum(array) {
+  const sum = array.reduce(function (r, a) {
+    if (r.length > 0) {
+      a += r[r.length - 1];
+    }
+    r.push(a);
+    return r;
+  }, []);
+  return sum;
+}
