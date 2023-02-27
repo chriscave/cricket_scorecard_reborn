@@ -21,7 +21,7 @@ export default function BowlerDetails(props) {
     over.reduce((a, b) => a + b)
   );
   const cumSumRuns = cumulativeSum(overRuns);
-  const noOvers = 27;
+  const noOvers = 21;
   let overNumbers = [];
   for (let i = 0; i < noOvers; i++) {
     overNumbers.push(i);

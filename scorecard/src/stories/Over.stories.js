@@ -14,7 +14,7 @@ const Template = (args) => <Over {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  value: [1, 2, 3, 4, 5, 6],
+  value: [1, 2, 3, "Wkt", 5, 6],
   score: 20,
   wickets: 2,
 };
