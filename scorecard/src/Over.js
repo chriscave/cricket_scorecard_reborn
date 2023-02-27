@@ -1,4 +1,5 @@
 import React from "react";
+import { BallsRequiredInOver } from "./App";
 
 export function ConvertBallToSymbol(ball) {
   if (ball === "Wide") {
@@ -32,18 +33,21 @@ function BallColumnDetail(props) {
 }
 
 function OverDetail(props) {
+  let extracolumn;
   const firstcolumn = props.value
     ? [props.value[0], props.value[1], props.value[2]]
     : null;
   const secondcolumn = props.value
     ? [props.value[3], props.value[4], props.value[5]]
     : null;
-  // const extracolumn = ["", "", ""];
+  if (BallsRequiredInOver(props.value) > 6) {
+    extracolumn = props.value.slice(6);
+  }
 
   return (
     <div className="over-detail">
       <BallColumnDetail value={firstcolumn} />
-      {/* <BallColumnDetail value={extracolumn} /> */}
+      <BallColumnDetail value={extracolumn} />
       <BallColumnDetail value={secondcolumn} />
     </div>
   );

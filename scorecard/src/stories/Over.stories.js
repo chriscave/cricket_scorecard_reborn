@@ -35,6 +35,6 @@ Tertiary.args = {
 
 export const Extras = Template.bind({});
 Extras.args = {
-  value: [1, 2, 3, 4, "wd", 6, 7],
+  value: [1, 2, 3, 4, "Wide", 6, 7],
   score: 0,
 };

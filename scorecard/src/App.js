@@ -6,6 +6,14 @@ import BowlerNameDropdown from "./BowlerNameDropdown";
 import "./styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+export function BallsRequiredInOver(over) {
+  const penalties = over
+    ? over.map((ball) => ["Wide", "No ball"].includes(ball))
+    : [0];
+  const extraBalls = penalties.reduce((sum, a) => sum + a, 0);
+  return 6 + extraBalls;
+}
+
 export default class Scorecard extends React.Component {
   constructor(props) {
     super(props);
@@ -29,13 +37,16 @@ export default class Scorecard extends React.Component {
     const updatedScorecard = this.state.scorecard.slice();
     const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
     let newBowlerChosen = this.state.newBowlerChosen.valueOf();
-    if (updatedScorecard.length === 0 || lastOver.length === 6) {
+    if (
+      updatedScorecard.length === 0 ||
+      lastOver.length === BallsRequiredInOver(lastOver)
+    ) {
       currentOver = [i];
       updatedScorecard.push(currentOver);
     } else {
       currentOver = lastOver.slice();
       currentOver.push(i);
-      if (currentOver.length === 6) {
+      if (currentOver.length === BallsRequiredInOver(currentOver)) {
         newBowlerChosen = false;
       }
       updatedScorecard[updatedScorecard.length - 1] = currentOver;
