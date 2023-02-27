@@ -5,6 +5,16 @@ function BowlerName(props) {
   return <div className="bowler-name">{props.value}</div>;
 }
 
+export function ConvertDetailIntoRuns(ball) {
+  if (["Wkt"].includes(ball)) {
+    return 0;
+  }
+  if (["Wide", "No ball"].includes(ball)) {
+    return 1;
+  }
+  return ball;
+}
+
 export default function BowlerDetails(props) {
   let overWickets = props.value
     ? props.value.map((over) => over.map((ball) => (ball === "Wkt" ? 1 : 0)))
@@ -14,7 +24,7 @@ export default function BowlerDetails(props) {
 
   const bowlerOverDetails = props.value ? props.value : [];
   const bowlerOverDetailsOnlyRuns = bowlerOverDetails.map((over) =>
-    over.map((ball) => (ball === "Wkt" ? 0 : ball))
+    over.map(ConvertDetailIntoRuns)
   );
 
   const overRuns = bowlerOverDetailsOnlyRuns.map((over) =>
