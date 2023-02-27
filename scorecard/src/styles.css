@@ -24,27 +24,31 @@
   border-top: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
+  display: flex;
 }
 
 .bowler-details {
   height: 60px;
   width: 1000px;
-  /* border: 1px solid black; */
   float: left;
   display: flex;
 }
 
 .over {
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid black;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   float: left;
   width: var(--over-width);
   height: var(--over-height);
-  font-size: small;
+  font-size: x-small;
 }
 
 .over-detail {
+  display: flex;
+  flex-direction: row;
   float: left;
   width: var(--over-width);
   height: 45px;
@@ -56,26 +60,16 @@
   border-top: 1px solid black;
   text-align: center;
   float: left;
-  font-size: x-small;
 }
 
-.ball-row {
-  width: var(--over-width);
-  height: 15px;
+.ball-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
 }
 
 .ball {
-  width: 10px;
-  height: 15px;
   justify-content: center;
   display: flex;
   align-items: center;
-  margin-right: 4px;
-  margin-left: 2px;
-}
-.left {
-  float: left;
-}
-.right {
-  float: right;
 }

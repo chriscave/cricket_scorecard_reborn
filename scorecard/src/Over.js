@@ -1,37 +1,39 @@
 import React from "react";
 
 function BallDetail(props) {
-  const className = props.side + " ball";
   return (
-    <div className={className}>
-      {" "}
-      {props.value === "Wkt" ? "W" : props.value}
-    </div>
+    <div className="ball"> {props.value === "Wkt" ? "W" : props.value}</div>
   );
 }
 
-function BallRowDetail(props) {
-  const leftball = props.value[0];
-  const rightball = props.value[1];
-  return (
-    <div className="ball-row">
-      {" "}
-      <BallDetail side="left" value={leftball} />
-      <BallDetail side="right" value={rightball} />
-    </div>
-  );
+function BallColumnDetail(props) {
+  if (props.value) {
+    return (
+      <div className="ball-column">
+        {props.value.map((ballValue) => (
+          <BallDetail value={ballValue} />
+        ))}
+      </div>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 function OverDetail(props) {
-  const firstrow = props.value ? [props.value[0], props.value[3]] : "";
-  const secondrow = props.value ? [props.value[1], props.value[4]] : "";
-  const thirdrow = props.value ? [props.value[2], props.value[5]] : "";
+  const firstcolumn = props.value
+    ? [props.value[0], props.value[1], props.value[2]]
+    : null;
+  const secondcolumn = props.value
+    ? [props.value[3], props.value[4], props.value[5]]
+    : null;
+  // const extracolumn = ["", "", ""];
 
   return (
     <div className="over-detail">
-      {" "}
-      <BallRowDetail value={firstrow} /> <BallRowDetail value={secondrow} />{" "}
-      <BallRowDetail value={thirdrow} />
+      <BallColumnDetail value={firstcolumn} />
+      {/* <BallColumnDetail value={extracolumn} /> */}
+      <BallColumnDetail value={secondcolumn} />
     </div>
   );
 }
