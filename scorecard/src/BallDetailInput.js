@@ -18,11 +18,12 @@ class BallDetailInput extends React.Component {
             {this.renderButton(4)}
             {this.renderButton(6)}
           </div>
+          <div>{this.renderButton("Wkt")}</div>
           <div>
-            {this.renderButton("Wkt")}
-            {/* <button>NB</button> */}
+            <div>{this.renderButton("No ball")}</div>
+            <div>{this.renderButton("Wide")}</div>
+
             {/* <button>Bye</button> */}
-            {/* <button>Wide</button> */}
             {/* <button>LB</button> */}
           </div>
         </div>
