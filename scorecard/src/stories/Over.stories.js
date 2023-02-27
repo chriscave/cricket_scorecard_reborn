@@ -32,3 +32,9 @@ Tertiary.args = {
   score: 100,
   wickets: 1,
 };
+
+export const Extras = Template.bind({});
+Extras.args = {
+  value: [1, 2, 3, 4, "wd", 6, 7],
+  score: 0,
+};
