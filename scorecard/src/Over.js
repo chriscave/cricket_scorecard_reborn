@@ -1,9 +1,20 @@
 import React from "react";
 
+export function ConvertBallToSymbol(ball) {
+  if (ball === "Wide") {
+    return "wd";
+  }
+  if (ball === "Wkt") {
+    return "W";
+  }
+  if (ball === "No ball") {
+    return "nb";
+  }
+  return ball;
+}
+
 function BallDetail(props) {
-  return (
-    <div className="ball"> {props.value === "Wkt" ? "W" : props.value}</div>
-  );
+  return <div className="ball"> {ConvertBallToSymbol(props.value)}</div>;
 }
 
 function BallColumnDetail(props) {
