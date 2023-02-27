@@ -18,3 +18,17 @@ Primary.args = {
   score: 20,
   wickets: 2,
 };
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  value: [0, 0, 0, 0, 0, 0],
+  score: 5,
+  wickets: 1,
+};
+
+export const Tertiary = Template.bind({});
+Tertiary.args = {
+  value: [0, 0, 0, 0],
+  score: 100,
+  wickets: 1,
+};
