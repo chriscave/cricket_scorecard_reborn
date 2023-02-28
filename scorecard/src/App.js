@@ -8,7 +8,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export function BallsRequiredInOver(over) {
   const penalties = over
-    ? over.map((ball) => ["Wide", "No ball"].includes(ball))
+    ? over.map((ball) =>
+        typeof ball === "string" ? ball.includes("Wide") : false
+      )
     : [0];
   const extraBalls = penalties.reduce((sum, a) => sum + a, 0);
   return 6 + extraBalls;
@@ -33,6 +35,7 @@ export default class Scorecard extends React.Component {
   }
 
   handleClick(i) {
+    console.log("click!");
     let currentOver;
     const updatedScorecard = this.state.scorecard.slice();
     const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
@@ -45,7 +48,11 @@ export default class Scorecard extends React.Component {
       updatedScorecard.push(currentOver);
     } else {
       currentOver = lastOver.slice();
-      currentOver.push(i);
+      if (currentOver.at(-1) === "Wide") {
+        currentOver.splice(currentOver.length - 1, 1, "Wide-" + i);
+      } else {
+        currentOver.push(i);
+      }
       if (currentOver.length === BallsRequiredInOver(currentOver)) {
         newBowlerChosen = false;
       }
@@ -65,6 +72,7 @@ export default class Scorecard extends React.Component {
   }
 
   render() {
+    console.log(this.state.scorecard);
     return (
       <div>
         <BowlingScorecard

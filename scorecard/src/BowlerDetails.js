@@ -9,8 +9,9 @@ export function ConvertDetailIntoRuns(ball) {
   if (["Wkt"].includes(ball)) {
     return 0;
   }
-  if (["Wide", "No ball"].includes(ball)) {
-    return 1;
+  if (typeof ball === "string") {
+    const extraPenalty = ball.split("-")[1];
+    return extraPenalty ? 1 + Number(extraPenalty) : 1;
   }
   return ball;
 }
