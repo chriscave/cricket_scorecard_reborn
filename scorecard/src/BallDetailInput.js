@@ -20,7 +20,6 @@ class BallDetailInput extends React.Component {
     return <button onClick={() => this.handleExtraClick(i)}>{i}</button>;
   }
   render() {
-    console.log(this.state.widePenalty);
     if (this.props.bowlerChosen) {
       if (this.state.widePenalty === false) {
         return (
