@@ -35,7 +35,6 @@ export default class Scorecard extends React.Component {
   }
 
   handleClick(i) {
-    console.log("click!");
     let currentOver;
     const updatedScorecard = this.state.scorecard.slice();
     const lastOver = updatedScorecard.at(-1) ? updatedScorecard.at(-1) : [];
