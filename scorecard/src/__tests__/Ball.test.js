@@ -27,3 +27,10 @@ test("Wide has 1 run and a symbol of wd and 1 penalty", () => {
   expect(ball.symbol).toBe("wd");
   expect(ball.penalty).toBe(1);
 });
+
+test("Wide has 2 run and a symbol of wd-2 and 1 penalty", () => {
+  const ball = new Ball("Wide", 1);
+  expect(ball.runs).toBe(2);
+  expect(ball.symbol).toBe("wd-1");
+  expect(ball.penalty).toBe(1);
+});
