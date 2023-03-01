@@ -45,7 +45,14 @@ export default class Scorecard extends React.Component {
     super(props);
     this.state = {
       scorecard: [],
-      bowlerNames: ["Bowler 1", "Bowler 2"],
+      bowlerNames: [
+        "Bowler 1",
+        "Bowler 2",
+        "Bowler 3",
+        "Bowler 4",
+        "Bowler 5",
+        "Bowler 6",
+      ],
       bowlerOrder: [],
       newBowlerChosen: false,
     };

@@ -6,14 +6,16 @@ function BowlerName(props) {
 }
 
 export function ConvertDetailIntoRuns(ball) {
+  if (typeof ball === "number") {
+    return ball;
+  }
   if (["Wkt"].includes(ball)) {
     return 0;
   }
-  if (typeof ball === "string") {
-    const extraPenalty = ball.split("-")[1];
-    return extraPenalty ? 1 + Number(extraPenalty) : 1;
+  if (typeof ball === "object") {
+    return 1 + ball[1];
   }
-  return ball;
+  return 0;
 }
 
 export default function BowlerDetails(props) {

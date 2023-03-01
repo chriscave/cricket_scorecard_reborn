@@ -6,9 +6,21 @@ test("does not convert number", () => {
   expect(actual).toBe(expected);
 });
 
+test("Wicket is converted to W", () => {
+  const actual = ConvertBallToSymbol("Wkt");
+  const expected = "W";
+  expect(actual).toBe(expected);
+});
+
 test("Wide is converted to wd", () => {
   const actual = ConvertBallToSymbol("Wide");
   const expected = "wd";
+  expect(actual).toBe(expected);
+});
+
+test("Wide is converted to wd", () => {
+  const actual = ConvertBallToSymbol(["Wide", 1]);
+  const expected = "wd-1";
   expect(actual).toBe(expected);
 });
 

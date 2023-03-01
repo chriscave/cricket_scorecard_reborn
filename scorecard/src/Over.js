@@ -2,16 +2,28 @@ import React from "react";
 import { BallsRequiredInOver } from "./App";
 
 export function ConvertBallToSymbol(ball) {
-  if (ball === "Wide") {
-    return "wd";
-  }
   if (ball === "Wkt") {
     return "W";
+  }
+  if (typeof ball === "number") {
+    return ball;
+  }
+
+  if (ball === "Wide") {
+    return "wd";
   }
   if (ball === "No ball") {
     return "nb";
   }
-  return ball;
+  if (typeof ball === "object") {
+    if (ball[0] === "Wide") {
+      if (ball[1] === 0) {
+        return "wd";
+      } else {
+        return "wd-" + ball[1];
+      }
+    }
+  }
 }
 
 function BallDetail(props) {
