@@ -6,10 +6,6 @@ export default class Ball {
     this.wide = this.ball === "Wide";
   }
 
-  includes(value) {
-    return this.wide;
-  }
-
   runsSymbolsPenalties() {
     if (this.wicket) {
       return [0, "W", 0];

@@ -1,4 +1,5 @@
 import React from "react";
+import Ball from "./Ball";
 
 class BallDetailInput extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class BallDetailInput extends React.Component {
     return this.props.onClick(i);
   }
   renderButton(i) {
-    return <button onClick={() => this.props.onClick(i)}>{i}</button>;
+    return <button onClick={() => this.props.onClick(new Ball(i))}>{i}</button>;
   }
 
   renderPenaltyButton(i) {
@@ -36,7 +37,7 @@ class BallDetailInput extends React.Component {
             </div>
             <div>{this.renderButton("Wkt")}</div>
             <div>
-              {this.renderPenaltyButton("Wide")}
+              {/* {this.renderPenaltyButton("Wide")} */}
 
               {/* <button>Bye</button> */}
               {/* <button>LB</button> */}

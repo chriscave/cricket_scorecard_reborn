@@ -7,13 +7,7 @@ import "./styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export function BallsRequiredInOver(over) {
-  const penalties = over
-    ? over.map((ball) =>
-        typeof ball === "object" || typeof ball === "string"
-          ? ball.includes("Wide")
-          : false
-      )
-    : [0];
+  const penalties = over ? over.map((ball) => ball.penalty) : [0];
   const extraBalls = penalties.reduce((sum, a) => sum + a, 0);
   return 6 + extraBalls;
 }
@@ -32,11 +26,9 @@ export function UpdateScorecard(ball, scorecard) {
   if (NewOver(scorecard)) {
     updatedScorecard.push([]);
   }
-  const currentOver = updatedScorecard[updatedScorecard.length - 1];
-  currentOver[currentOver.length - 1] === "Wide"
-    ? (currentOver[currentOver.length - 1] = ["Wide", ball])
-    : (currentOver[currentOver.length] = ball);
-
+  const currentOver = updatedScorecard[updatedScorecard.length - 1].slice();
+  currentOver[currentOver.length] = ball;
+  updatedScorecard[updatedScorecard.length - 1] = currentOver;
   return updatedScorecard;
 }
 
@@ -58,9 +50,9 @@ export default class Scorecard extends React.Component {
     };
   }
 
-  handleClick(i) {
+  handleClick(ball) {
     const currentScorecard = this.state.scorecard.slice();
-    const updatedScorecard = UpdateScorecard(i, currentScorecard);
+    const updatedScorecard = UpdateScorecard(ball, currentScorecard);
     const currentOver = updatedScorecard[updatedScorecard.length - 1];
     let newBowlerChosen = this.state.newBowlerChosen.valueOf();
 

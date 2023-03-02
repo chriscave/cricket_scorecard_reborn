@@ -5,36 +5,23 @@ function BowlerName(props) {
   return <div className="bowler-name">{props.value}</div>;
 }
 
-export function ConvertDetailIntoRuns(ball) {
-  if (typeof ball === "number") {
-    return ball;
-  }
-  if (["Wkt"].includes(ball)) {
-    return 0;
-  }
-  if (typeof ball === "object") {
-    return 1 + ball[1];
-  }
-  return 0;
-}
-
 export default function BowlerDetails(props) {
   let overWickets = props.value
-    ? props.value.map((over) => over.map((ball) => (ball === "Wkt" ? 1 : 0)))
+    ? props.value.map((over) => over.map((ball) => (ball.wicket ? 1 : 0)))
     : [];
   overWickets = overWickets.map((over) => over.reduce((a, b) => a + b));
   const cumSumWickets = cumulativeSum(overWickets);
 
   const bowlerOverDetails = props.value ? props.value : [];
   const bowlerOverDetailsOnlyRuns = bowlerOverDetails.map((over) =>
-    over.map(ConvertDetailIntoRuns)
+    over.map((ball) => ball.runs)
   );
 
   const overRuns = bowlerOverDetailsOnlyRuns.map((over) =>
     over.reduce((a, b) => a + b)
   );
   const cumSumRuns = cumulativeSum(overRuns);
-  const noOvers = 21;
+  const noOvers = 1;
   let overNumbers = [];
   for (let i = 0; i < noOvers; i++) {
     overNumbers.push(i);
