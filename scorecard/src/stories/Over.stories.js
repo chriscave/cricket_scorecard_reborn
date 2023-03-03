@@ -1,5 +1,5 @@
 import React from "react";
-
+import Ball from "../Ball";
 import Over from "../Over";
 
 import "../styles.css";
@@ -14,27 +14,49 @@ const Template = (args) => <Over {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  value: [1, 2, 3, "Wkt", 5, 6],
+  value: [
+    new Ball(1),
+    new Ball(2),
+    new Ball(3),
+    new Ball("Wkt"),
+    new Ball(5),
+    new Ball(6),
+  ],
   score: 20,
   wickets: 2,
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  value: [0, 0, 0, 0, 0, 0],
+  value: [
+    new Ball(0),
+    new Ball(0),
+    new Ball(0),
+    new Ball(0),
+    new Ball(0),
+    new Ball(0),
+  ],
   score: 5,
   wickets: 1,
 };
 
 export const Tertiary = Template.bind({});
 Tertiary.args = {
-  value: [0, 0, 0, 0],
+  value: [new Ball(0), new Ball(0), new Ball(0), new Ball(0)],
   score: 100,
   wickets: 1,
 };
 
 export const Extras = Template.bind({});
 Extras.args = {
-  value: [1, 2, 3, 4, ["Wide", 4], 7, 8],
+  value: [
+    new Ball(1),
+    new Ball(2),
+    new Ball(3),
+    new Ball(4),
+    new Ball("Wide", 4),
+    new Ball(7),
+    new Ball(8),
+  ],
   score: 0,
 };
