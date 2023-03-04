@@ -37,12 +37,14 @@ function BallDetailInput(props) {
           <div>{renderButton("Wkt")}</div>
           <div>
             <button onClick={() => setExtra("Wide")}> Wide</button>
+            <button onClick={() => setExtra("No ball")}> No ball</button>
           </div>
         </div>
       );
     } else {
       return (
         <div>
+          {renderExtraRunButton(0)}
           {renderExtraRunButton(1)}
           {renderExtraRunButton(2)}
           {renderExtraRunButton(3)}

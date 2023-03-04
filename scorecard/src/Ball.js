@@ -3,17 +3,23 @@ export default class Ball {
     this.ball = ball;
     this.extraRuns = extraRuns;
     this.wicket = this.ball === "Wkt";
-    this.wide = this.ball === "Wide";
   }
 
   runsSymbolsPenalties() {
     if (this.wicket) {
       return [0, "W", 0];
     }
-    if (this.wide) {
+    if (this.ball === "Wide") {
       return [
         1 + this.extraRuns,
         this.extraRuns > 0 ? "wd-" + this.extraRuns : "wd",
+        1,
+      ];
+    }
+    if (this.ball === "No ball") {
+      return [
+        1 + this.extraRuns,
+        this.extraRuns > 0 ? "nb-" + this.extraRuns : "nb",
         1,
       ];
     }

@@ -33,3 +33,9 @@ Primary.args = {
     ],
   ],
 };
+
+export const Extras = Template.bind({});
+Extras.args = {
+  name: "Bowler 1",
+  value: [[new Ball("Wide", 3), new Ball("No ball", 1)]],
+};
