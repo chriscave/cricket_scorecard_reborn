@@ -1,65 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import Ball from "./Ball";
 
-class BallDetailInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { widePenalty: false };
+function BallDetailInput(props) {
+  const [extra, setExtra] = useState(null);
+
+  function renderButton(i) {
+    return <button onClick={() => props.onClick(new Ball(i))}>{i}</button>;
   }
 
-  handleExtraClick(i) {
-    let widePenalty = this.state.widePenalty.valueOf();
-    widePenalty = !widePenalty;
-    this.setState({ widePenalty: widePenalty });
-    return this.props.onClick(i);
+  function renderExtraRunButton(i) {
+    return (
+      <button
+        onClick={() => {
+          props.onClick(new Ball(extra, i));
+          setExtra(null);
+        }}
+      >
+        {i}
+      </button>
+    );
   }
-  renderButton(i) {
-    return <button onClick={() => this.props.onClick(new Ball(i))}>{i}</button>;
-  }
-
-  renderPenaltyButton(i) {
-    return <button onClick={() => this.handleExtraClick(i)}>{i}</button>;
-  }
-  render() {
-    if (this.props.bowlerChosen) {
-      if (this.state.widePenalty === false) {
-        return (
+  if (props.bowlerChosen) {
+    if (extra === null) {
+      return (
+        <div>
           <div>
-            <div>
-              {this.renderButton(0)}
-              {this.renderButton(1)}
-              {this.renderButton(2)}
-            </div>
-            <div>
-              {this.renderButton(3)}
-              {this.renderButton(4)}
-              {this.renderButton(6)}
-            </div>
-            <div>{this.renderButton("Wkt")}</div>
-            <div>
-              {/* {this.renderPenaltyButton("Wide")} */}
-
-              {/* <button>Bye</button> */}
-              {/* <button>LB</button> */}
-            </div>
+            {renderButton(0)}
+            {renderButton(1)}
+            {renderButton(2)}
           </div>
-        );
-      } else {
-        return (
           <div>
-            {this.renderPenaltyButton(0)}
-            {this.renderPenaltyButton(1)}
-            {this.renderPenaltyButton(2)}
-            {this.renderPenaltyButton(3)}
-            {this.renderPenaltyButton(4)}
-            {this.renderPenaltyButton(6)}
+            {renderButton(3)}
+            {renderButton(4)}
+            {renderButton(6)}
           </div>
-        );
-      }
+          <div>{renderButton("Wkt")}</div>
+          <div>
+            <button onClick={() => setExtra("Wide")}> Wide</button>
+          </div>
+        </div>
+      );
     } else {
-      return <div></div>;
+      return (
+        <div>
+          {renderExtraRunButton(1)}
+          {renderExtraRunButton(2)}
+          {renderExtraRunButton(3)}
+          {renderExtraRunButton(4)}
+          {renderExtraRunButton(5)}
+          {renderExtraRunButton(6)}
+        </div>
+      );
     }
+  } else {
+    return <div></div>;
   }
 }
-
 export default BallDetailInput;
