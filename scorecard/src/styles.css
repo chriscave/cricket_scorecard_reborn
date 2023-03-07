@@ -59,4 +59,33 @@
   justify-content: center;
   display: flex;
   align-items: center;
+  /* border: 0.5px solid black; */
+}
+
+.noball {
+  display: flex;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+}
+
+.extra-runs {
+  display: flex;
+  border: 1px solid black;
+  width: 2px;
+  height: 2px;
+  background: black;
+  margin-left: 1px;
+  margin-right: 1px;
+  border-radius: 50%;
+}
+
+.extra-runs-row {
+  display: flex;
+  padding: 0.5px;
+  justify-content: center;
+  align-items: center;
 }

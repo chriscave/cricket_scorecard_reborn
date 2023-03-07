@@ -73,9 +73,3 @@ test("Add seventh Ball to over with wide", () => {
   expected.push(ball);
   expect(received).toStrictEqual([expected]);
 });
-
-// test("Add ball to new over", () => {
-//   const received = UpdateScorecard(3, [[1, 0, 0, 0, 0, 0]]);
-//   const expected = [[1, 0, 0, 0, 0, 0], [3]];
-//   expect(received).toStrictEqual(expected);
-// });

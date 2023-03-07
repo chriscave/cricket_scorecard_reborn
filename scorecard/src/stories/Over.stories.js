@@ -47,16 +47,18 @@ Tertiary.args = {
   wickets: 1,
 };
 
-export const Extras = Template.bind({});
-Extras.args = {
+export const NoBall = Template.bind({});
+NoBall.args = {
   value: [
     new Ball(1),
     new Ball(2),
-    new Ball(3),
-    new Ball(4),
-    new Ball("Wide", 4),
-    new Ball(7),
-    new Ball(8),
+    new Ball("No ball", 0),
+    new Ball("No ball", 1),
+    new Ball("No ball", 2),
+    new Ball("No ball", 3),
+    new Ball("No ball", 4),
+    new Ball("No ball", 5),
+    new Ball("No ball", 6),
   ],
   score: 0,
 };
