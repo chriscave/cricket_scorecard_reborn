@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(-13.785 -38.593)">
+<rect x="13.785" y="38.593" width="50" height="50" fill="none" stroke-width=".26458"/>
+<path d="m38.921 38.593v50" stroke="#000" stroke-width="2.9"/>
+<path d="m13.785 63.729h50" stroke="#000" stroke-width="3"/>
+<circle cx="25.589" cy="50.54" r="6.5889" stroke="#000" stroke-width="3"/>
+<circle cx="52.166" cy="50.54" r="6.5889" stroke="#000" stroke-width="3"/>
+</g>
+</svg>

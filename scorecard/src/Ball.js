@@ -1,5 +1,11 @@
 import "./styles.css";
 
+import wd0 from "./wd0.svg";
+import wd1 from "./wd1.svg";
+import wd2 from "./wd2.svg";
+import wd3 from "./wd3.svg";
+import wd4 from "./wd4.svg";
+
 export default class Ball {
   constructor(ball, extraRuns = 0) {
     this.ball = ball;
@@ -42,6 +48,9 @@ export default class Ball {
         </div>
       );
     }
+    if (this.ball === "Wide") {
+      return <>{renderWide(this.extraRuns)}</>;
+    }
     return this.runsSymbolsPenalties()[1];
   }
 
@@ -50,19 +59,26 @@ export default class Ball {
   }
 }
 
+function renderWide(runs) {
+  const x = [wd0, wd1, wd2, wd3, wd4];
+  return (
+    <div>
+      <img width={"10px"} height={"10px"} src={x[runs]} />
+    </div>
+  );
+}
+
 function renderExtraRow(runs) {
   let dots = [];
   for (let i = 0; i < runs; i++) {
     dots.push(i);
   }
   return (
-    <>
-      <div className="extra-runs-row">
-        {dots.map(() => (
-          <div className="extra-runs"></div>
-        ))}
-      </div>
-    </>
+    <div className="extra-runs-row">
+      {dots.map(() => (
+        <div className="extra-runs"></div>
+      ))}
+    </div>
   );
 }
 

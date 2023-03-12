@@ -62,3 +62,15 @@ NoBall.args = {
   ],
   score: 0,
 };
+
+export const Wide = Template.bind({});
+Wide.args = {
+  value: [
+    new Ball("Wide", 0),
+    new Ball("Wide", 1),
+    new Ball("Wide", 2),
+    new Ball("Wide", 3),
+    new Ball("Wide", 4),
+  ],
+  score: 2,
+};
